@@ -1,0 +1,27 @@
+set MODULE_PATH=%1
+set INPUT="C:\Users\Mi6\eclipse-workspace\printing\prinitng\target\Printing.jar"
+set OUTPUT="C:\Users\Mi6\eclipse-workspace\printing\prinitng\target\Printing.exe"
+set JAR="Printing.jar"
+set VERSION="0.0.1"
+set APP_ICON=%6
+
+call "%JAVA_HOME%\bin\java.exe" ^
+    -Xmx512M ^
+    --module-path "%JAVA_HOME%\jmods" ^
+    --add-opens jdk.jlink/jdk.tools.jlink.internal.packager=jdk.packager ^
+    -m jdk.packager/jdk.packager.Main ^
+    create-image ^
+    --module-path "%MODULE_PATH%" ^
+    --verbose ^
+    --echo-mode ^
+    --add-modules "java.base,java.datatransfer,java.desktop,java.scripting,java.xml,jdk.jsobject,jdk.unsupported,jdk.unsupported.desktop,jdk.xml.dom,javafx.controls,javafx.fxml,java.naming,java.sql,jdk.charsets" ^
+    --input "%INPUT%" ^
+    --output "%OUTPUT%" ^
+    --name "Printing" ^
+    --main-jar "%JAR%" ^
+    --version "%VERSION%" ^
+    --jvm-args "--add-opens javafx.base/com.sun.javafx.reflect=ALL-UNNAMED" ^
+    --icon "%APP_ICON%" ^
+    --class "com.mi6.panel.Main"
+	
+	javac -d out --module-source-path "C:/Users/Mi6/eclipse-workspace/printing/prinitng/src/main/java9" --module printing
